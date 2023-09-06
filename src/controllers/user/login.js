@@ -8,11 +8,11 @@ const login = async (req, res) => {
 
     const user = await User.findOne({email});
 
-    if (!user || await bcrypt.compare(password, user.password)) {
+    if (!user || !await bcrypt.compare(password, user.password)) {
         throw httpError(401, 'Wrong email or password.');
     };
 
-    const token = jwt.sign({_id: user_id, email: user.email}, process.env.JWT);
+    const token = jwt.sign({_id: user._id, email: user.email}, process.env.JWT);
 
     await User.findByIdAndUpdate({_id: user._id}, token, {new: true});
 
