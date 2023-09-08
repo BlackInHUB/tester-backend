@@ -13,4 +13,6 @@ router.get('/logout', authenticate, asyncWrapper(controllers.logout));
 
 router.get('/users', authenticate, asyncWrapper(controllers.getUsers));
 
+router.get('/current', authenticate, asyncWrapper(controllers.current));
+
 module.exports = router;
