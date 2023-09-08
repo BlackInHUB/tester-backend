@@ -13,6 +13,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(morgan('tiny'));
 
 app.use('/auth', routers.auth);
+app.use('/tests', routers.tests);
 
 app.use((error, req, res, next) => {
     const {status = 500, message = 'Server error'} = error;

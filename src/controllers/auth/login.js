@@ -14,7 +14,7 @@ const login = async (req, res) => {
 
     const token = jwt.sign({_id: user._id, email: user.email}, process.env.JWT);
 
-    await User.findByIdAndUpdate({_id: user._id}, token, {new: true});
+    await User.findByIdAndUpdate({_id: user._id}, {token}, {new: true});
 
     res.status(200).json({
         user: {...user._doc, password: null},
