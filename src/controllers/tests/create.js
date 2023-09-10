@@ -9,7 +9,8 @@ const create = async (req, res) => {
         author: result.author,
         _id: result._id,
         questions: result.questions.length,
-        options: result.options
+        options: result.options,
+        category: result.category
     });
 };
 
