@@ -6,6 +6,10 @@ const testSchema = new mongoose.Schema({
         ref: 'User',
         require: true
     },
+    category: {
+        type: String,
+        require: true
+    },
     questions: {
         type: Array,
         require: true
@@ -20,7 +24,7 @@ const testSchema = new mongoose.Schema({
     results: {
         type: Array
     },
-});
+}, {versionKey: false});
 
 const Test = mongoose.model('Test', testSchema);
 
