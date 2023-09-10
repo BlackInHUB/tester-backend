@@ -11,4 +11,6 @@ router.post('/upload', authenticate, upload.single('image'), asyncWrapper(contro
 
 router.get('/getall', authenticate, asyncWrapper(controllers.getTests));
 
+router.get('/get/:_id', authenticate, asyncWrapper(controllers.getTest));
+
 module.exports = router;

@@ -10,6 +10,9 @@ const testSchema = new mongoose.Schema({
         type: Array,
         require: true
     },
+    options: {
+        type: Object,   
+    },
     passedUsers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
