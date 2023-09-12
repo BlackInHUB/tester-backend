@@ -15,4 +15,10 @@ router.get('/get/:_id', authenticate, asyncWrapper(controllers.getTest));
 
 router.patch('/sendresults/:_id', authenticate, asyncWrapper(controllers.sendTestResults));
 
+router.get('/created', authenticate, asyncWrapper(controllers.getUserCreatedTests));
+
+router.get('/passed', authenticate, asyncWrapper(controllers.getUserPassedTests));
+
+router.get('/details/:_id', authenticate, asyncWrapper(controllers.getTestDetails));
+
 module.exports = router;
