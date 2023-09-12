@@ -1,4 +1,4 @@
-const {Test} = require('../../models');
+const {Test, User} = require('../../models');
 
 const getTests = async (req, res) => {
     const {category} = req.query;
@@ -16,6 +16,8 @@ const getTests = async (req, res) => {
             bestTime: {$min: "$results.time"}
         }}]);
 
+        await User.populate(tests, {path: 'author', select: ('name')});
+
         return res.status(200).json(tests);
     };
 
@@ -28,6 +30,8 @@ const getTests = async (req, res) => {
         maxScore: {$max: "$results.score"},
         bestTime: {$min: "$results.time"}
     }}]);
+
+    await User.populate(tests, {path: 'author', select: ('name')});
 
     res.status(200).json(tests);
 };

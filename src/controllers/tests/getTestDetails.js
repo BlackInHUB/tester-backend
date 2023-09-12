@@ -1,4 +1,4 @@
-const {Test} = require('../../models');
+const {Test, User} = require('../../models');
 const mongoose = require('mongoose');
 
 const getTestDetails = async (req, res) => {
@@ -16,6 +16,8 @@ const getTestDetails = async (req, res) => {
         maxScore: {$max: "$results.score"},
         bestTime: {$min: "$results.time"}
     }}]);
+
+    await User.populate(test, {path: 'results.user', select: ('name')});
 
     res.status(200).json(test);
 };
