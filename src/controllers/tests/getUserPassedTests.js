@@ -1,22 +1,25 @@
-const {Test} = require('../../models');
+const {Test, User} = require('../../models');
 const mongoose = require('mongoose');
 
 const getUserPassedTests = async (req, res) => {
     const {_id} = req.user;
     
-    const test = await Test.aggregate([
+    const tests = await Test.aggregate([
         { "$match": { "passedUsers": _id }},
         {$project: {
         author: 1,
-        options: 1,
         category: 1,
-        questions: { $size:"$questions" },
-        passedUsers: {$size: "$passedUsers"},
-        maxScore: {$max: "$results.score"},
-        bestTime: {$min: "$results.time"}
+        results: {$filter: {
+            input: "$results",
+            as: 'results',
+            cond: {"$eq": ["$$results.user", _id]}
+        }},
+        questions: { $size: "$questions" },
     }}]);
 
-    res.status(200).json(test);
+    await User.populate(tests, {path: 'author', select: ('name')});
+
+    res.status(200).json(tests);
 };
 
 module.exports = getUserPassedTests;
