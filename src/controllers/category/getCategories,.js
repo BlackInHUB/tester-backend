@@ -1,9 +1,9 @@
 const {Category} = require('../../models');
 
 const getCategories = async (req, res) => {
-    const categorys = await Category.find({});
+    const categories = await Category.find({});
 
-    res.status(200).json(categorys);
+    res.status(200).json(categories);
 };
 
 module.exports = getCategories;

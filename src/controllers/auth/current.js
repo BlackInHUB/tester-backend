@@ -6,8 +6,6 @@ const current = async (req, res) => {
 
     const user = await User.findById(_id, '-password -token');
 
-    console.log(user);
-
     if (!user) {
         throw httpError(401);
     };
