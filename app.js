@@ -7,9 +7,16 @@ const routers = require('./src/routes');
 
 const app = express();
 
-app.use(cors({origin: '*'}));
+app.use(
+  cors({
+    origin: 'https://cozy-lokum-790cda.netlify.app/',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
 
 app.use('/auth', routers.auth);
@@ -17,8 +24,8 @@ app.use('/tests', routers.tests);
 app.use('/categories', routers.categories);
 
 app.use((error, req, res, next) => {
-    const {status = 500, message = 'Server error'} = error;
-    res.status(status).json({message});
-})
+  const { status = 500, message = 'Server error' } = error;
+  res.status(status).json({ message });
+});
 
 module.exports = app;
